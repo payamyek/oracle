@@ -9,7 +9,8 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "structlog (>=25.1.0,<26.0.0)",
-    "rich (>=13.9.4,<14.0.0)"
+    "rich (>=13.9.4,<14.0.0)",
+    "pandas[excel] (>=2.2.3,<3.0.0)"
 ]
 
 [tool.poetry]
@@ -21,6 +22,7 @@ line-length = 120
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.9.7"
 pre-commit = "^4.1.0"
+jupyter = "^1.1.1"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

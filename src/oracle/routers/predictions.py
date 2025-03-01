@@ -1,9 +1,7 @@
-from typing import Literal
-
 from fastapi import APIRouter
-from pydantic import BaseModel
 
 from oracle.model import predict_life_expectancy
+from oracle.schemas.predictions import Prediction
 
 router = APIRouter(
     prefix="/predictions",
@@ -11,11 +9,6 @@ router = APIRouter(
 )
 
 
-class UserInformation(BaseModel):
-    age: int
-    sex: Literal["M", "F"]
-
-
 @router.post("/")
-def create_item(user: UserInformation):
-    return {"life_expectancy": predict_life_expectancy(user.age, user.sex)}
+def create_item(prediction: Prediction):
+    return {"life_expectancy": predict_life_expectancy(prediction.age, prediction.sex)}

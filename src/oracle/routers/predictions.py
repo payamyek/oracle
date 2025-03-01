@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from oracle.model import predict_life_expectancy
-from oracle.schemas.predictions import Prediction
+from oracle.schemas.predictions import Prediction, PredictionResponse
 
 router = APIRouter(
     prefix="/predictions",
@@ -10,5 +10,5 @@ router = APIRouter(
 
 
 @router.post("/")
-def create_item(prediction: Prediction):
-    return {"life_expectancy": predict_life_expectancy(prediction.age, prediction.sex)}
+def make_prediction(prediction: Prediction) -> PredictionResponse:
+    return PredictionResponse(life_expectancy=predict_life_expectancy(prediction.age, prediction.sex))

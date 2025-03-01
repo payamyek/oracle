@@ -1,4 +1,9 @@
-from oracle import log
+from fastapi import FastAPI
 
-if __name__ == "__main__":
-    log.info("Application starting up ...")
+from oracle import log
+from oracle.routers import predictions
+
+log.info("Application starting up ...")
+
+app = FastAPI()
+app.include_router(router=predictions.router)

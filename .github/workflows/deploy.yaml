@@ -36,3 +36,4 @@ jobs:
           SAMPLE_DIGEST: ${{ steps.push.outputs.digest }}
         with:
           token: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+          app_name: oracle

@@ -4,7 +4,7 @@ from oracle.model import predict_life_expectancy
 from oracle.schemas.predictions import Prediction, PredictionResponse
 
 router = APIRouter(
-    prefix="/predictions",
+    prefix="/api/v1/predictions",
     responses={404: {"description": "Not found"}},
 )
 

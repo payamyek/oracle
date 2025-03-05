@@ -5,7 +5,7 @@ from oracle.routers import predictions
 
 log.info("Application starting up ...")
 
-app = FastAPI(root_path="/api/v1", redirect_slashes=False)
+app = FastAPI(redirect_slashes=False)
 
 
 @app.get("/health")

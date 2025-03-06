@@ -11,4 +11,6 @@ router = APIRouter(
 
 @router.post("")
 def make_prediction(prediction: Prediction) -> PredictionResponse:
-    return PredictionResponse(life_expectancy=predict_life_expectancy(prediction))
+    return PredictionResponse(
+        life_expectancy=predict_life_expectancy(prediction), date_of_birth=prediction.date_of_birth
+    )

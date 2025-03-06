@@ -5,6 +5,11 @@ from typing import Literal
 from pydantic import BaseModel, Field, computed_field
 
 
+def _calculate_age(date_of_birth: date) -> int:
+    today = date.today()
+    return today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+
+
 class Prediction(BaseModel):
     date_of_birth: date
     sex: Literal["M", "F"]
@@ -12,8 +17,20 @@ class Prediction(BaseModel):
     @computed_field
     @cached_property
     def age(self) -> int:
-        return int((date.today() - self.date_of_birth).days / 365)
+        return _calculate_age(self.date_of_birth)
 
 
 class PredictionResponse(BaseModel):
     life_expectancy: int = Field(ge=0)
+    date_of_birth: date
+
+    @computed_field
+    @cached_property
+    def date_of_death(self) -> date:
+        age = _calculate_age(self.date_of_birth)
+        return date(self.life_expectancy - age + date.today().year, 1, 1)
+
+    @computed_field
+    @cached_property
+    def seconds_till_death(self) -> float:
+        return (self.date_of_death - date.today()).total_seconds()

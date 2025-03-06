@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from functools import cached_property
 from typing import Literal
 
@@ -32,5 +32,7 @@ class PredictionResponse(BaseModel):
 
     @computed_field
     @cached_property
-    def seconds_till_death(self) -> float:
-        return (self.date_of_death - date.today()).total_seconds()
+    def milliseconds_till_death(self) -> int:
+        return int(
+            (datetime.combine(self.date_of_death, datetime.min.time()) - datetime.now()).total_seconds() * 1000.0
+        )

@@ -3,7 +3,6 @@ from functools import cached_property
 from typing import Literal
 
 from pydantic import BaseModel, Field, computed_field
-from pydantic_extra_types.country import CountryAlpha2
 
 
 def _calculate_age(date_of_birth: date) -> int:
@@ -14,7 +13,7 @@ def _calculate_age(date_of_birth: date) -> int:
 class Prediction(BaseModel):
     date_of_birth: date
     sex: Literal["M", "F"]
-    country_code: CountryAlpha2 = Field(description="Country code adhering to ISO 3166-1 alpha-2")
+    country_code: Literal["CA"] = Field(description="Country code adhering to ISO 3166-1 alpha-2")
 
     @computed_field
     @cached_property

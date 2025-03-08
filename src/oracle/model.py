@@ -1,12 +1,18 @@
 import pandas as pd
+from fastapi import HTTPException
 
 from oracle.schemas.predictions import Prediction
 
-# we cant estimate beyond this age
+# can't estimate beyond this age
 AGE_UPPER_BOUND = 110
+
+SUPPORTED_COUNTRY_CODES = ["CA"]
 
 
 def predict_life_expectancy(prediction: Prediction) -> int:
+    if prediction.country_code not in SUPPORTED_COUNTRY_CODES:
+        raise HTTPException(status_code=404, detail="Country code is not supported")
+
     if prediction.age > AGE_UPPER_BOUND:
         return prediction.age
 

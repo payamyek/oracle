@@ -4,4 +4,4 @@ install:
 	poetry install
 
 run:
-	poetry run fastapi dev src/oracle/main.py
+	railway run poetry run fastapi dev src/oracle/main.py

@@ -24,6 +24,12 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
+RUN apt-get update \
+    && apt-get -y upgrade \
+    && apt-get -y --no-install-recommends install libpq-dev gcc python3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt .
 
 # Download dependencies as a separate step to take advantage of Docker's caching.

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from oracle.model import predict_life_expectancy
+from oracle.predictor import predict_life_expectancy
 from oracle.schemas.predictions import Prediction, PredictionResponse
 
 router = APIRouter(

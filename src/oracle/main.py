@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from oracle import log
-from oracle.routers import predictions
+from oracle.routers import prediction
 
 log.info("Application starting up ...")
 
@@ -13,4 +13,4 @@ def health_check():
     return {"status": "healthy"}
 
 
-app.include_router(router=predictions.router)
+app.include_router(router=prediction.router)

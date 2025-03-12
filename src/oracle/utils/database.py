@@ -1,8 +1,7 @@
 from sqlmodel import SQLModel
 
-import oracle.models.api_key  # noqa: F401
-import oracle.models.client  # noqa: F401
 from oracle import database_engine
+from oracle.models import *  # noqa: F403
 
 
 def create_db_and_tables():

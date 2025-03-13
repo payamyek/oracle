@@ -1,8 +1,9 @@
+from pydantic import EmailStr
 from sqlmodel import Field, SQLModel
 
 
 class ApiKey(SQLModel, table=True):
-    client_id: str = Field(primary_key=True)
+    client_email: EmailStr = Field(primary_key=True)
     name: str = Field(primary_key=True)
     hash: str
     referrer: str

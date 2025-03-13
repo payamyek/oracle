@@ -1,13 +1,15 @@
-import uuid
+from datetime import datetime
 
+from pydantic import EmailStr
 from sqlmodel import Field, SQLModel
 
 
-class Client(SQLModel, table=True):
-    id: str = Field(default_factory=uuid.uuid4, primary_key=True)
-    name: str
-    email: str
-    firstName: str
-    lastName: bool
-    isVerified: bool
-    createdTimestamp: int
+class ClientBase(SQLModel):
+    first_name: str
+    last_name: str
+
+
+class Client(ClientBase, table=True):
+    email: EmailStr = Field(primary_key=True)
+    is_verified: bool = False
+    created_at: datetime = datetime.now()

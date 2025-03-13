@@ -13,7 +13,7 @@ services:
       context: .
     ports:
       - 8000:8000
-    command: fastapi dev src/oracle/main.py
+    command: fastapi dev src/oracle/main.py --host 0.0.0.0
     environment:
       - ORACLE_DATABASE_URL=postgresql://postgres:password@db:5432/postgres
     volumes:

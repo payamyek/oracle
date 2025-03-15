@@ -5,7 +5,6 @@ from oracle.services.predictor import predict_life_expectancy
 
 router = APIRouter(
     prefix="/api/v1/predictions",
-    responses={404: {"description": "Not found"}},
 )
 
 

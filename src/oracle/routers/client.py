@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from sqlmodel import select
 
 from oracle.dependencies import SessionDep
 from oracle.models.client import Client
@@ -13,7 +14,10 @@ router = APIRouter(
 def create_client(client: Client, session: SessionDep) -> Client:
     db_client = Client.model_validate(client)
 
-    if session.get(Client, client.email):
+    statement = select(Client).where(Client.email == client.email)
+    results = session.exec(statement)
+
+    if results.first():
         raise HTTPException(status_code=400, detail=f"Client already exists with the email {client.email}")
 
     session.add(db_client)

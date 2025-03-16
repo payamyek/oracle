@@ -13,14 +13,21 @@ router = APIRouter(prefix="/api/v1/api-keys", tags=["API Keys"])
 
 @router.post("", response_model=ApiKeyPublic)
 def create_api_key(api_key: ApiKeyCreate, session: SessionDep):
-    statement = select(Client).where(Client.id == api_key.client_id)
-    results = session.exec(statement)
-    client = results.first()
+    client_row = session.exec(select(Client).where(Client.id == api_key.client_id)).first()
 
-    if not client:
+    if not client_row:
         raise HTTPException(status_code=404, detail=f"Client with {api_key.client_id=} does not exist")
-    elif not client.is_verified:
+    elif not client_row.is_verified:
         raise HTTPException(status_code=403, detail="Unverified client cannot make API keys")
+
+    api_key_row = session.exec(
+        select(ApiKey).where(ApiKey.name == api_key.name and ApiKey.client_id == api_key.client_id)
+    ).first()
+
+    if api_key_row:
+        raise HTTPException(
+            status_code=409, detail=f"Api key with {api_key.name=} and {api_key.client_id=} already exists"
+        )
 
     raw_api_key = hashlib.sha256((api_key.referrer + api_key.client_id.hex + uuid.uuid4().hex).encode()).hexdigest()
     salt = uuid.uuid4().hex

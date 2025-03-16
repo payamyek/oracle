@@ -15,7 +15,7 @@ def create_client(client: ClientCreate, session: SessionDep) -> ClientPublic:
     results = session.exec(statement)
 
     if results.first():
-        raise HTTPException(status_code=400, detail=f"Client already exists with the email {client.email}")
+        raise HTTPException(status_code=409, detail=f"Client already exists with the email {client.email}")
 
     session.add(db_client)
     session.commit()

@@ -1,12 +1,12 @@
 import pandas as pd
 
-from oracle.schemas.prediction import Prediction
+from oracle.schemas.prediction import PredictionCreate
 
 # can't estimate beyond this age
 AGE_UPPER_BOUND = 110
 
 
-def predict_life_expectancy(prediction: Prediction) -> int:
+def predict_life_expectancy(prediction: PredictionCreate) -> int:
     if prediction.age > AGE_UPPER_BOUND:
         return prediction.age
 

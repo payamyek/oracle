@@ -10,7 +10,7 @@ def _calculate_age(date_of_birth: date) -> int:
     return today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
 
 
-class Prediction(BaseModel):
+class PredictionCreate(BaseModel):
     date_of_birth: date
     sex: Literal["M", "F"]
     country_code: Literal["CA"] = Field(description="Country code adhering to ISO 3166-1 alpha-2")
@@ -21,7 +21,7 @@ class Prediction(BaseModel):
         return _calculate_age(self.date_of_birth)
 
 
-class PredictionResponse(BaseModel):
+class PredictionPublic(BaseModel):
     life_expectancy: int = Field(ge=0)
     date_of_birth: date
 

@@ -4,9 +4,7 @@ from sqlmodel import select
 from oracle.dependencies import SessionDep
 from oracle.models.client import Client, ClientCreate, ClientPublic
 
-router = APIRouter(
-    prefix="/api/v1/clients",
-)
+router = APIRouter(prefix="/api/v1/clients", tags=["Clients"])
 
 
 @router.post("")

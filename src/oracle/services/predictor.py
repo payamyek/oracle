@@ -1,6 +1,6 @@
 import pandas as pd
 
-from oracle.schemas.prediction import PredictionCreate
+from oracle.models.prediction import PredictionCreate
 
 # can't estimate beyond this age
 AGE_UPPER_BOUND = 110

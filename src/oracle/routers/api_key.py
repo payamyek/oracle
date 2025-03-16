@@ -27,10 +27,8 @@ def create_api_key(api_key: ApiKeyCreate, session: SessionDep):
     hashed_api_key = hashlib.sha256((raw_api_key + salt).encode()).hexdigest()
 
     db_api_key = ApiKey.model_validate(api_key, update={"hashed_api_key": hashed_api_key, "salt": salt})
-
     session.add(db_api_key)
     session.commit()
     session.refresh(db_api_key)
 
-    response = db_api_key.model_dump() | {"api_key": raw_api_key}
-    return response
+    return db_api_key.model_dump() | {"api_key": raw_api_key}

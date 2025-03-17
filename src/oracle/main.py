@@ -1,7 +1,9 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from sqlalchemy import exc
 
 from oracle import log
 from oracle.routers import api_key, client, core, prediction
@@ -19,6 +21,15 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(redirect_slashes=False, lifespan=lifespan)
+
+
+@app.exception_handler(exc.IntegrityError)
+async def integrity_error_exception_handler(_: Request, __: exc.IntegrityError):
+    return JSONResponse(
+        status_code=409,
+        content={"message": "Existing entity already exists"},
+    )
+
 
 app.add_middleware(
     CORSMiddleware,

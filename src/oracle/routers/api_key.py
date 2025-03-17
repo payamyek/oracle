@@ -2,7 +2,6 @@ import hashlib
 import uuid
 
 from fastapi import APIRouter, HTTPException
-from sqlalchemy import exc
 from sqlmodel import select
 
 from oracle.dependencies import SessionDep
@@ -27,13 +26,8 @@ def create_api_key(api_key: ApiKeyCreate, session: SessionDep):
 
     db_api_key = ApiKey.model_validate(api_key, update={"hashed_api_key": hashed_api_key, "salt": salt})
 
-    try:
-        session.add(db_api_key)
-        session.commit()
-        session.refresh(db_api_key)
-    except exc.IntegrityError:
-        raise HTTPException(status_code=409, detail="API key with same name and client_id already exists.")
-    except exc.SQLAlchemyError as e:
-        raise HTTPException(status_code=400, detail=str(e.__dict__["orig"]))
+    session.add(db_api_key)
+    session.commit()
+    session.refresh(db_api_key)
 
     return db_api_key.model_dump() | {"api_key": raw_api_key}

@@ -1,6 +1,6 @@
 from datetime import datetime
-from uuid import UUID
 
+from pydantic import UUID4
 from sqlmodel import Field, SQLModel
 
 
@@ -10,7 +10,7 @@ class ApiKeyBase(SQLModel):
 
 
 class ApiKey(ApiKeyBase, table=True):
-    client_id: UUID = Field(primary_key=True, foreign_key="client.id")
+    client_id: UUID4 = Field(primary_key=True, foreign_key="client.id")
     hashed_api_key: str
     salt: str
     is_active: bool = True
@@ -18,7 +18,7 @@ class ApiKey(ApiKeyBase, table=True):
 
 
 class ApiKeyCreate(ApiKeyBase):
-    client_id: UUID
+    client_id: UUID4
     pass
 
 

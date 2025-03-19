@@ -1,3 +1,3 @@
-from . import api_key, client
+from . import api_key, client, prediction
 
-__all__ = ["api_key", "client"]
+__all__ = ["api_key", "client", "prediction"]

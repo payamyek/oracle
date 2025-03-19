@@ -13,7 +13,7 @@ log.info("Application starting up ...")
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_: FastAPI):
     log.info("Creating database and tables")
     create_db_and_tables()
     yield

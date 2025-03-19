@@ -6,7 +6,7 @@ from sqlmodel import Field, SQLModel
 
 class ApiKeyBase(SQLModel):
     name: str = Field(primary_key=True)
-    referrer: str
+    referer: str
 
 
 class ApiKey(ApiKeyBase, table=True):

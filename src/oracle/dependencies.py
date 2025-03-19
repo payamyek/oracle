@@ -17,28 +17,24 @@ def get_session():
 SessionDep = Annotated[Session, Depends(get_session)]
 
 
-class _CommonHeaders(BaseModel):
+class CommonHeaders(BaseModel):
     referer: str
     x_client_id: UUID4
     x_api_key: str
 
 
-CommonHeaders = Annotated[_CommonHeaders, Header()]
+CommonHeadersDep = Annotated[CommonHeaders, Header()]
 
 
-async def verify_api_key(headers: CommonHeaders, session: SessionDep):
-    api_keys = session.exec(select(ApiKey).where(ApiKey.client_id == headers.x_client_id)).all()
+async def verify_api_key(headers: CommonHeadersDep, session: SessionDep):
+    results = session.exec(select(ApiKey).where(ApiKey.client_id == headers.x_client_id)).all()
 
-    found = False
+    for record in results:
+        hashed_api_key = hashlib.sha256((headers.x_api_key + record.salt).encode()).hexdigest()
+        if (hashed_api_key, headers.referer) == (record.hashed_api_key, record.referer):
+            return
 
-    for api_key in api_keys:
-        hashed_api_key = hashlib.sha256((headers.x_api_key + api_key.salt).encode()).hexdigest()
-        if hashed_api_key == api_key.hashed_api_key and headers.referer == api_key.referrer:
-            found = True
-            break
-
-    if not found:
-        raise HTTPException(status_code=403, detail="API key is invalid")
+    raise HTTPException(status_code=403, detail="API key is invalid")
 
 
 VerifyApiKeyDep = Depends(verify_api_key)

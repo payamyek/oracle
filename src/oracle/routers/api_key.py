@@ -20,7 +20,7 @@ def create_api_key(api_key: ApiKeyCreate, session: SessionDep):
     elif not client_row.is_verified:
         raise HTTPException(status_code=403, detail="Unverified client cannot make API keys")
 
-    raw_api_key = hashlib.sha256((api_key.referrer + api_key.client_id.hex + uuid.uuid4().hex).encode()).hexdigest()
+    raw_api_key = hashlib.sha256((api_key.referer + api_key.client_id.hex + uuid.uuid4().hex).encode()).hexdigest()
     salt = uuid.uuid4().hex
     hashed_api_key = hashlib.sha256((raw_api_key + salt).encode()).hexdigest()
 

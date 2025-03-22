@@ -37,4 +37,4 @@ async def verify_api_key(headers: CommonHeadersDep, session: SessionDep):
     raise HTTPException(status_code=403, detail="API key is invalid")
 
 
-VerifyApiKeyDep = Depends(verify_api_key)
+VerifyApiKeyDep = Depends(verify_api_key, use_cache=False)

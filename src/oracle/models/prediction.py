@@ -1,6 +1,6 @@
 from datetime import date, datetime
 from functools import cached_property
-from typing import Literal, Optional, Self
+from typing import List, Literal, Optional, Self
 
 from pydantic import BaseModel, Field, computed_field, model_validator
 
@@ -39,9 +39,15 @@ class PredictionCreate(BaseModel):
         return self
 
 
+class PredictionMedicalBillOfMaterial(BaseModel):
+    factor: str
+    impact: float
+
+
 class PredictionPublic(BaseModel):
     life_expectancy: float = Field(ge=0)
     date_of_birth: date
+    medical_bill_of_materials: List[PredictionMedicalBillOfMaterial] = []
 
     @computed_field
     @cached_property

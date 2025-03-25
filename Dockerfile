@@ -26,7 +26,7 @@ RUN adduser \
 
 RUN apt-get update \
     && apt-get -y upgrade \
-    && apt-get -y --no-install-recommends install libpq-dev gcc python3-dev \
+    && apt-get -y --no-install-recommends install libpq-dev gcc python3-dev curl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

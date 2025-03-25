@@ -8,6 +8,19 @@
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
 services:
+  load-data:
+    image: ubuntu:24.04
+    volumes:
+      - ./docker/postgres/:/data
+    command: >
+      sh -c "apt-get update &&
+      apt-get install -y postgresql-client &&
+      psql postgresql://postgres:password@db:5432/postgres -f /data/00_client.sql &&
+      psql postgresql://postgres:password@db:5432/postgres -f /data/01_api_key.sql"
+    depends_on:
+      server:
+        condition: service_healthy
+
   server:
     build:
       context: .
@@ -21,6 +34,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: curl --fail http://0.0.0.0:8000/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
   db:
     image: postgres
     restart: always
@@ -35,5 +54,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
 volumes:
   db-data:

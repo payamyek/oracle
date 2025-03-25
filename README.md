@@ -7,7 +7,7 @@ Life expectancy predictor.
 ## Headers
 
 ```
-REFERER=http://localhost
+REFERER=http://localhost:5173/
 X_API_KEY=<ASK_AUTHOR>
 X_CLIENT_ID=<ASK_AUTHOR>
 ```

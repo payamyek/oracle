@@ -34,12 +34,14 @@ def predict_life_expectancy(prediction: PredictionCreate) -> PredictionPublic:
         return PredictionPublic(life_expectancy=prediction.age, date_of_birth=prediction.date_of_birth)
 
     expected_remaining_years = LIFE_TABLE[prediction.sex].query("age == @prediction.age")["e_x"].item()
-    life_expectancy = prediction.age + expected_remaining_years + _smoking_impact(prediction)
+    life_expectancy = prediction.age + expected_remaining_years
 
     medical_bill_of_materials: List[PredictionMedicalBillOfMaterial] = [
         PredictionMedicalBillOfMaterial(factor="BASE_LIFE_EXPECTANCY", impact=life_expectancy),
         PredictionMedicalBillOfMaterial(factor="SMOKING", impact=_smoking_impact(prediction)),
     ]
+
+    life_expectancy += _smoking_impact(prediction)
 
     return PredictionPublic(
         life_expectancy=round(life_expectancy, 2),

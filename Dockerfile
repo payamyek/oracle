@@ -48,4 +48,4 @@ COPY . .
 EXPOSE 8000
 
 # Run the application.
-CMD fastapi run ./src/oracle/main.py --port 8000
+CMD ["fastapi", "run", "./src/oracle/main.py", "--port", "8000"]

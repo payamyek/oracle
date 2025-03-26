@@ -39,15 +39,19 @@ class PredictionCreate(BaseModel):
         return self
 
 
-class PredictionMedicalBillOfMaterial(BaseModel):
-    factor: str
-    impact: float
+class PredictionComponent(BaseModel):
+    type: Literal["BASE_LIFE_EXPECTANCY", "SMOKING"]
+    adjustment: float
 
 
 class PredictionPublic(BaseModel):
-    life_expectancy: float = Field(ge=0)
     date_of_birth: date
-    medical_bill_of_materials: List[PredictionMedicalBillOfMaterial] = []
+    components: List[PredictionComponent] = []
+
+    @computed_field
+    @cached_property
+    def life_expectancy(self) -> float:
+        return sum(item.adjustment for item in self.components)
 
     @computed_field
     @cached_property

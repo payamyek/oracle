@@ -8,7 +8,7 @@ AGE_UPPER_BOUND = 110
 
 LIFE_TABLE = {
     "M": pd.read_pickle("data/canada_male_life_table.pkl"),
-    "F": pd.read_pickle("data/canada_male_life_table.pkl"),
+    "F": pd.read_pickle("data/canada_female_life_table.pkl"),
 }
 
 

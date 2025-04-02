@@ -50,8 +50,13 @@ class PredictionPublic(BaseModel):
 
     @computed_field
     @cached_property
+    def age(self) -> int:
+        return _calculate_age(self.date_of_birth)
+
+    @computed_field
+    @cached_property
     def life_expectancy(self) -> float:
-        return sum(item.adjustment for item in self.components)
+        return max(sum(item.adjustment for item in self.components), self.age)
 
     @computed_field
     @cached_property

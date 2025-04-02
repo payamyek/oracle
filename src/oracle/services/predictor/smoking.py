@@ -2,7 +2,7 @@ from datetime import date
 from oracle.models.prediction import PredictionComponent, PredictionCreate
 
 
-SMOKING_IMPACT_IN_MINUTES = {"M": -17, "F": -22}
+_SMOKING_IMPACT_IN_MINUTES = {"M": -17, "F": -22}
 
 
 def smoking_component(prediction: PredictionCreate) -> PredictionComponent:
@@ -16,7 +16,7 @@ def smoking_component(prediction: PredictionCreate) -> PredictionComponent:
         elif prediction.smoking_start_date is not None:
             days_smoked = (date.today() - prediction.smoking_start_date).days
 
-        adjustment = (SMOKING_IMPACT_IN_MINUTES[prediction.sex] * days_smoked * prediction.smoking_daily_frequency) / (
+        adjustment = (_SMOKING_IMPACT_IN_MINUTES[prediction.sex] * days_smoked * prediction.smoking_daily_frequency) / (
             365 * 60 * 24
         )
 

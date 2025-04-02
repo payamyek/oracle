@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from functools import cached_property
 from typing import List, Literal, Optional, Self
 
@@ -61,8 +61,7 @@ class PredictionPublic(BaseModel):
     @computed_field
     @cached_property
     def date_of_death(self) -> date:
-        age = _calculate_age(self.date_of_birth)
-        return date(int(self.life_expectancy - age + date.today().year), 1, 1)
+        return self.date_of_birth + timedelta(days=self.life_expectancy * 365)
 
     @computed_field
     @cached_property

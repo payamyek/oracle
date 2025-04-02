@@ -40,7 +40,7 @@ class PredictionCreate(BaseModel):
 
 
 class PredictionComponent(BaseModel):
-    type: Literal["LIFE_EXPECTANCY", "SMOKING"]
+    type: Literal["LIFE_TABLE", "SMOKING"]
     adjustment: float
 
 

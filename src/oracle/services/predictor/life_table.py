@@ -11,11 +11,11 @@ _LIFE_TABLE = {
 }
 
 
-def life_expectancy_component(prediction: PredictionCreate) -> PredictionComponent:
+def life_table_component(prediction: PredictionCreate) -> PredictionComponent:
     adjustment = prediction.age
 
     if prediction.age <= _AGE_UPPER_BOUND:
         expected_remaining_years = _LIFE_TABLE[prediction.sex].query("age == @prediction.age")["e_x"].item()
         adjustment = prediction.age + expected_remaining_years
 
-    return PredictionComponent(type="LIFE_EXPECTANCY", adjustment=adjustment)
+    return PredictionComponent(type="LIFE_TABLE", adjustment=adjustment)

@@ -9,6 +9,8 @@ Oracle takes in personal attributes like age, and gender to magically (using sci
 - Pydantic
 - SQLAlchemy
 - Postgres
+- UV
+- Pytest
 
 # Research
 

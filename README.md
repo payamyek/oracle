@@ -11,6 +11,10 @@ We use public data provided by [Stats Canada](https://www150.statcan.gc.ca/n1/en
 
 If you are interested how we extract this data using Pandas, you can view the commited [Jupyter notebook](https://github.com/payamyek/oracle/blob/13ecbd2ccf9c50e2eff7dcba799a527559c6a273/notebooks/life_table.ipynb). We essentially take this pre-computed Excel life table and load them into our Python runtime as a Pandas Dataframe.
 
+## REST API
+
+You can view the full [API documentation ](https://oracle-production.up.railway.app/docs#/) that was built with Swager.
+
 ## Tools
 
 - Python

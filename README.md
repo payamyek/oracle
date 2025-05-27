@@ -4,7 +4,7 @@ Oracle takes in personal attributes like age and gender to magically (using scie
 
 ## Data Sources
 
-We use publicly available data provided by [Stats Canada](https://www150.statcan.gc.ca/n1/en/catalogue/84-537-X) and reference the most up-to-date lifetable.
+We use public data provided by [Stats Canada](https://www150.statcan.gc.ca/n1/en/catalogue/84-537-X) and reference the most up-to-date lifetable.
 
 > [!NOTE]
 > Lifetables essentially predict how long a person is expected to live, based on current mortality rates for different age groups. These tables provide age-specific probabilities of death, life expectancy, and survival rates, allowing us to estimate the average remaining years of life for individuals at various ages.

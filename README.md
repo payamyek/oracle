@@ -1,16 +1,14 @@
-# Oracle
+# Oracle - Life Expectancy Predictor
 
-Life expectancy predictor.
+Oracle takes in personal attributes like age, and gender to magically (using science and extensive research) determine a person's life expectancy.
 
-# Local Development
+## Tools
 
-## Headers
-
-```
-REFERER=http://localhost:5173/
-X_API_KEY=<ASK_AUTHOR>
-X_CLIENT_ID=<ASK_AUTHOR>
-```
+- Python
+- FastAPI
+- Pydantic
+- SQLAlchemy
+- Postgres
 
 # Research
 

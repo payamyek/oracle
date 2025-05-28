@@ -11,9 +11,43 @@ We use public data provided by [Stats Canada](https://www150.statcan.gc.ca/n1/en
 
 If you are interested how we extract this data using Pandas, you can view the commited [Jupyter notebook](https://github.com/payamyek/oracle/blob/13ecbd2ccf9c50e2eff7dcba799a527559c6a273/notebooks/life_table.ipynb). We essentially take this pre-computed Excel life table and load them into our Python runtime as a Pandas Dataframe.
 
-## REST API
+## Prediction Service
 
-You can view the full [API documentation ](https://oracle-production.up.railway.app/docs#/) that was built with Swager.
+The prediction service is the heart of the system, it makes the predictions ...
+
+With a simple input as such:
+
+```json
+{
+  "date_of_birth": "2000-04-18",
+  "sex": "M",
+  "country_code": "CA",
+  "smoking_start_date": "2010-04-19",
+  "smoking_daily_frequency": 2
+}
+```
+
+The predictor will output:
+
+```json
+{
+  "date_of_birth": "2000-04-18",
+  "components": [
+    {
+      "type": "LIFE_TABLE",
+      "adjustment": 80.41
+    },
+    {
+      "type": "SMOKING",
+      "adjustment": -0.3569482496194825
+    }
+  ],
+  "age": 25,
+  "life_expectancy": 80.05305175038052,
+  "date_of_death": "2080-04-17",
+  "milliseconds_till_death": 1732143131211
+}
+```
 
 ## Tools
 

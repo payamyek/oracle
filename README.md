@@ -51,7 +51,7 @@ The predictor will output:
 
 Essentially, it's saying that I'm expected to die on April 17, 2080. The `components` block explains how it got the final result which is the `life_expectancy` scalar value. I lost `0.35` years off my life for smoking 2 cigars starting from the age of 10 (obviously this data is not real ...)
 
-If you are interested in the API specification, please checkout the [API documentation](https://oracle-production.up.railway.app/docs#/).
+If you are interested in the API specification, please checkout the [documentation](https://oracle-production.up.railway.app/docs#/).
 
 ## Tools
 
